@@ -177,7 +177,7 @@ Carefully consider the image and each question before responding, then provide y
             out2 = ask_qw(new_messages_entity, processor, model)[0]
             print(out2)
             json_data_2 = extract_json(out2)
-            score_scientific = json_data_2['score'] # a list
+            score_entity = json_data_2['score'] # a list
           
             
 
@@ -248,7 +248,7 @@ Carefully consider the image and each question before responding, then provide y
             print(score_acc, score_qual)
             
 
-            csv_writer.writerow([image_name,prompt,out1,out2,score_scientific,out3,score_detail,out4,score_quality,score_entity_avg, score_detail_avg, score_quality_avg])
+            csv_writer.writerow([image_name,prompt,out1,out2,score_entity,out3,score_detail,out4,score_quality,score_entity_avg, score_detail_avg, score_quality_avg])
             csvfile.flush()
                 
         
