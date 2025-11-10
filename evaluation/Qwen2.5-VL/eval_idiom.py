@@ -156,7 +156,6 @@ def eval(args):
                 encoded_image = base64.b64encode(f.read())
             encoded_image_text = encoded_image.decode("utf-8")
             base64_image = f"data:image/png;base64,{encoded_image_text}"
-            exit(0)
                 
             q1 = "Describe this image."   
             messages = [
