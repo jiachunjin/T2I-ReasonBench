@@ -40,6 +40,7 @@ def ask_qw(mmm, processor, model):
         messages=mmm,
     )
     output_text = completion.choices[0].message.content
+    print(output_text)
     # Preparation for inference
     # text = processor.apply_chat_template(
     #     messages, tokenize=False, add_generation_prompt=True
@@ -178,7 +179,7 @@ def eval(args):
                     },
                     {
                     "type": "text",
-                    "text": "Describe this image."
+                    "text": q1
                     }
                 ]
                 }
