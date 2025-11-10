@@ -8,14 +8,6 @@ import json
 import re
 import argparse
 
-client = OpenAI(
-    # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
-    base_url="http://wanqing.internal/api/gateway/v1/endpoints",
-    # base_url = "https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints",
-    # 从环境变量中获取您的 API Key
-    api_key = "3st3k7qm36mv0839s869edb7eey63qommvce"
-)
-
 def extract_json(text):
     # Use a regular expression to find the JSON part
     json_pattern = r'\{.*?\}'
@@ -34,6 +26,13 @@ def extract_json(text):
     return json_data
 
 def ask_qw(mmm, processor, model):
+    client = OpenAI(
+        # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
+        base_url="http://wanqing.internal/api/gateway/v1/endpoints",
+        # base_url = "https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints",
+        # 从环境变量中获取您的 API Key
+        api_key = "3st3k7qm36mv0839s869edb7eey63qommvce"
+    )
     # print(mmm)
     # exit(0)
     completion = client.chat.completions.create(
