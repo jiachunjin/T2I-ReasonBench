@@ -185,6 +185,7 @@ def eval(args):
             ]
 
             out1 = ask_qw(messages, processor, model)[0]
+            print(out1)
 
     
             # print(prompt)
