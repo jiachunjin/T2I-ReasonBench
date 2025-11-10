@@ -40,8 +40,6 @@ def ask_qw(mmm, processor, model):
         messages=mmm,
     )
     output_text = completion.choices[0].message.content
-    print(output_text)
-    exit(0)
     # Preparation for inference
     # text = processor.apply_chat_template(
     #     messages, tokenize=False, add_generation_prompt=True
@@ -150,33 +148,25 @@ def eval(args):
             
         
             image_path = os.path.join(image_folder, image_name)
-            print(image_path)
             with open(image_path, "rb") as f:
                 encoded_image = base64.b64encode(f.read())
             encoded_image_text = encoded_image.decode("utf-8")
             base64_image = f"data:image/png;base64,{encoded_image_text}"
                 
             q1 = "Describe this image."   
-            mmm = [
+            messages = [
                 {
-                "role": "user",
-                "content": [
-                    {
-                    "type": "image_url",
-                    "image_url": {
-                        "url": base64_image
-                    }
-                    },
-                    {
-                    "type": "text",
-                    "text": q1
-                    }
-                ]
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "image_url",
+                            "url": base64_image,
+                        },
+                        {"type": "text", "text": q1},
+                    ],
                 }
             ]
-            
-            out1 = ask_qw(mmm, processor, model)[0]
-            print(out1)
+            out1 = ask_qw(messages, processor, model)[0]
 
     
             # print(prompt)
