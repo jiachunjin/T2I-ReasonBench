@@ -33,10 +33,12 @@ def extract_json(text):
         print("No JSON found in the text.")
     return json_data
 
-def ask_qw(messages, processor, model):
+def ask_qw(mmm, processor, model):
+    print(mmm)
+    exit(0)
     completion = client.chat.completions.create(
         model="ep-j4xf6w-1762763909712128651",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
-        messages=messages,
+        messages=mmm,
     )
     output_text = completion.choices[0].message.content
     # Preparation for inference
