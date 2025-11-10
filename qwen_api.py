@@ -14,7 +14,6 @@ client = OpenAI(
 )
 
 # Single-round:
-model_contents = ["描述这张图片"]
 image_path = "1.png"
 
 # 读取本地图片并编码为base64
@@ -55,7 +54,6 @@ mmm = [
 #     }
 # ]
 
-# model_contents.append(image)
 completion = client.chat.completions.create(
     model="ep-j4xf6w-1762763909712128651",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
     messages=mmm,

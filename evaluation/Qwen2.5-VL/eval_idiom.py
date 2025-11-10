@@ -151,6 +151,7 @@ def eval(args):
             
         
             image_path = os.path.join(image_folder, image_name)
+            print(image_path)
             with open(image_path, "rb") as f:
                 encoded_image = base64.b64encode(f.read())
             encoded_image_text = encoded_image.decode("utf-8")
