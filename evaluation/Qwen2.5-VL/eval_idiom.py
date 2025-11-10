@@ -1,10 +1,20 @@
-from transformers import Qwen2_5_VLForConditionalGeneration, AutoProcessor
-from qwen_vl_utils import process_vision_info
+# from transformers import Qwen2_5_VLForConditionalGeneration, AutoProcessor
+# from qwen_vl_utils import process_vision_info
+import base64
+from openai import OpenAI
 import os
 import csv
 import json
 import re
 import argparse
+
+client = OpenAI(
+    # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
+    base_url="http://wanqing.internal/api/gateway/v1/endpoints",
+    # base_url = "https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints",
+    # 从环境变量中获取您的 API Key
+    api_key = "3st3k7qm36mv0839s869edb7eey63qommvce"
+)
 
 def extract_json(text):
     # Use a regular expression to find the JSON part
@@ -24,28 +34,33 @@ def extract_json(text):
     return json_data
 
 def ask_qw(messages, processor, model):
+    completion = client.chat.completions.create(
+        model="ep-j4xf6w-1762763909712128651",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
+        messages=messages,
+    )
+    output_text = completion.choices[0].message.content
     # Preparation for inference
-    text = processor.apply_chat_template(
-        messages, tokenize=False, add_generation_prompt=True
-    )
-    image_inputs, video_inputs = process_vision_info(messages)
-    inputs = processor(
-        text=[text],
-        images=image_inputs,
-        videos=video_inputs,
-        padding=True,
-        return_tensors="pt",
-    )
-    inputs = inputs.to(model.device)
+    # text = processor.apply_chat_template(
+    #     messages, tokenize=False, add_generation_prompt=True
+    # )
+    # image_inputs, video_inputs = process_vision_info(messages)
+    # inputs = processor(
+    #     text=[text],
+    #     images=image_inputs,
+    #     videos=video_inputs,
+    #     padding=True,
+    #     return_tensors="pt",
+    # )
+    # inputs = inputs.to(model.device)
 
-    # Inference: Generation of the output
-    generated_ids = model.generate(**inputs, max_new_tokens=1000)
-    generated_ids_trimmed = [
-        out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
-    ]
-    output_text = processor.batch_decode(
-        generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
-    )
+    # # Inference: Generation of the output
+    # generated_ids = model.generate(**inputs, max_new_tokens=1000)
+    # generated_ids_trimmed = [
+    #     out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
+    # ]
+    # output_text = processor.batch_decode(
+    #     generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
+    # )
     
     return output_text
 
@@ -60,11 +75,12 @@ def eval(args):
     qs_json = args.qs_json
     
     # default: Load the model on the available device(s)
-    model = Qwen2_5_VLForConditionalGeneration.from_pretrained( 
-        "Qwen/Qwen2.5-VL-72B-Instruct", 
-        torch_dtype="auto", 
-        device_map="auto"
-    )
+    # model = Qwen2_5_VLForConditionalGeneration.from_pretrained( 
+    #     "Qwen/Qwen2.5-VL-72B-Instruct", 
+    #     torch_dtype="auto", 
+    #     device_map="auto"
+    # )
+    model = None
 
     # We recommend enabling flash_attention_2 for better acceleration and memory saving, especially in multi-image and video scenarios.
     # model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
@@ -75,8 +91,9 @@ def eval(args):
     # )
 
     # default processor
-    processor = AutoProcessor.from_pretrained("Qwen/Qwen2.5-VL-72B-Instruct")
-
+    # processor = AutoProcessor.from_pretrained("Qwen/Qwen2.5-VL-72B-Instruct")
+    processor = None
+    
     # The default range for the number of visual tokens per image in the model is 4-16384.
     # You can set min_pixels and max_pixels according to your needs, such as a token range of 256-1280, to balance performance and cost.
     # min_pixels = 256*28*28
@@ -130,6 +147,10 @@ def eval(args):
             
         
             image_path = os.path.join(image_folder, image_name)
+            with open(image_path, "rb") as f:
+                encoded_image = base64.b64encode(f.read())
+            encoded_image_text = encoded_image.decode("utf-8")
+            base64_image = f"data:image/png;base64,{encoded_image_text}"
                 
             q1 = "Describe this image."   
             messages = [
@@ -137,8 +158,8 @@ def eval(args):
                     "role": "user",
                     "content": [
                         {
-                            "type": "image",
-                            "image": image_path,
+                            "type": "image_url",
+                            "image_url": base64_image,
                         },
                         {"type": "text", "text": q1},
                     ],
