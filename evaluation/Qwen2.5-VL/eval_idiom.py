@@ -157,20 +157,25 @@ def eval(args):
             base64_image = f"data:image/png;base64,{encoded_image_text}"
                 
             q1 = "Describe this image."   
-            messages = [
+            mmm = [
                 {
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "image_url",
-                            "image_url": base64_image,
-                        },
-                        {"type": "text", "text": q1},
-                    ],
+                "role": "user",
+                "content": [
+                    {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": base64_image
+                    }
+                    },
+                    {
+                    "type": "text",
+                    "text": q1
+                    }
+                ]
                 }
             ]
             
-            out1 = ask_qw(messages, processor, model)[0]
+            out1 = ask_qw(mmm, processor, model)[0]
             print(out1)
 
     
