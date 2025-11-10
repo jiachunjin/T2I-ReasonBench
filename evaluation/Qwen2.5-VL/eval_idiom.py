@@ -64,7 +64,7 @@ def ask_qw(mmm, processor, model):
     #     generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
     # )
     
-    return output_text
+    return [output_text]
 
 
 
