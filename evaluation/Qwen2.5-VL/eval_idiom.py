@@ -34,13 +34,15 @@ def extract_json(text):
     return json_data
 
 def ask_qw(mmm, processor, model):
-    print(mmm)
-    exit(0)
+    # print(mmm)
+    # exit(0)
     completion = client.chat.completions.create(
         model="ep-j4xf6w-1762763909712128651",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
         messages=mmm,
     )
     output_text = completion.choices[0].message.content
+    print(output_text)
+    exit(0)
     # Preparation for inference
     # text = processor.apply_chat_template(
     #     messages, tokenize=False, add_generation_prompt=True
