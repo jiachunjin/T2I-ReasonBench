@@ -7,8 +7,8 @@ from PIL import Image
 # 初始化 OpenAI 客户端，从环境变量中读取您的 API Key
 client = OpenAI(
     # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
-    # base_url="http://wanqing.internal/api/gateway/v1/endpoints",
-    base_url = "https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints",
+    base_url="http://wanqing.internal/api/gateway/v1/endpoints",
+    # base_url = "https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints",
     # 从环境变量中获取您的 API Key
     api_key = "3st3k7qm36mv0839s869edb7eey63qommvce"
 )
