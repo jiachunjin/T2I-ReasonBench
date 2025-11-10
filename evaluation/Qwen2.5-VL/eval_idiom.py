@@ -8,8 +8,6 @@ import json
 import re
 import argparse
 from concurrent.futures import ProcessPoolExecutor, as_completed
-from functools import partial
-import threading
 
 def extract_json(text):
     # Use a regular expression to find the JSON part
@@ -268,35 +266,42 @@ def eval(args):
     # 按照原始顺序排序结果（根据 num）
     results.sort(key=lambda x: x['num'])
     
-    # 写入 CSV（使用锁确保线程安全）
-    print("写入结果到 CSV...")
-    write_lock = threading.Lock()
+    # 统计成功和失败的数量
+    success_count = sum(1 for r in results if r['success'])
+    failed_count = len(results) - success_count
+    print(f"处理完成：成功 {success_count} 张，失败 {failed_count} 张")
     
-    with write_lock:
-        with open(csv_path, 'a', newline='') as csvfile:
-            csv_writer = csv.writer(csvfile)
-            
-            # 如果是新文件，写入表头
-            if line_count == 0:
-                csv_writer.writerow(["id", "prompt", "answer_1", "answer_2", "score_acc", 
-                                    "answer_3", "score_qual", "score_a_avg", "score_q_avg"])
-            
-            # 写入所有成功的结果
-            for result in results:
-                if result['success']:
-                    csv_writer.writerow([
-                        result['image_name'],
-                        result['prompt'],
-                        result['out1'],
-                        result['out2'],
-                        result['score_acc'],
-                        result['out3'],
-                        result['score_quality'],
-                        result['score_acc_avg'],
-                        result['score_quality_avg']
-                    ])
-            
-            csvfile.flush()
+    # 写入 CSV
+    print(f"写入结果到 CSV: {csv_path}")
+    
+    with open(csv_path, 'a', newline='', encoding='utf-8') as csvfile:
+        csv_writer = csv.writer(csvfile)
+        
+        # 如果是新文件，写入表头
+        if line_count == 0:
+            csv_writer.writerow(["id", "prompt", "answer_1", "answer_2", "score_acc", 
+                                "answer_3", "score_qual", "score_a_avg", "score_q_avg"])
+            print("已写入表头")
+        
+        # 写入所有成功的结果
+        written_count = 0
+        for result in results:
+            if result['success']:
+                csv_writer.writerow([
+                    result['image_name'],
+                    result['prompt'],
+                    result['out1'],
+                    result['out2'],
+                    result['score_acc'],
+                    result['out3'],
+                    result['score_quality'],
+                    result['score_acc_avg'],
+                    result['score_quality_avg']
+                ])
+                written_count += 1
+        
+        csvfile.flush()
+        print(f"已写入 {written_count} 条记录到 CSV")
     
     print(f"评估完成！结果已保存到 {csv_path}")
     return csv_path
