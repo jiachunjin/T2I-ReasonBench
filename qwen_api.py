@@ -14,7 +14,7 @@ client = OpenAI(
 )
 
 # Single-round:
-image_path = "1.png"
+image_path = "/data/phd/jinjiachun/codebase/samples_qwenimage/t2i_076_images/idiom_interpretation/0001.png"
 
 # 读取本地图片并编码为base64
 with open(image_path, "rb") as f:
