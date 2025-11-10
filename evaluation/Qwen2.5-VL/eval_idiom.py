@@ -245,65 +245,54 @@ def eval(args):
         print("没有待评估的图片")
         return csv_path
     
-    # 使用多进程处理
+    # 如果是新文件，先写入表头
+    if line_count == 0:
+        with open(csv_path, 'w', newline='', encoding='utf-8') as csvfile:
+            csv_writer = csv.writer(csvfile)
+            csv_writer.writerow(["id", "prompt", "answer_1", "answer_2", "score_acc", 
+                                "answer_3", "score_qual", "score_a_avg", "score_q_avg"])
+            csvfile.flush()
+        print("已写入表头")
+    
+    # 使用多进程处理，并实时写入结果
     print(f"开始使用 {num_workers} 个进程并行处理...")
-    results = []
+    completed_count = 0
+    success_count = 0
+    failed_count = 0
     
     with ProcessPoolExecutor(max_workers=num_workers) as executor:
         # 提交所有任务
         future_to_task = {executor.submit(process_single_image, task): task for task in tasks}
         
-        # 收集完成的任务
+        # 每完成一个任务就立即写入CSV
         for future in as_completed(future_to_task):
             result = future.result()
-            results.append(result)
+            completed_count += 1
             
             if result['success']:
-                print(f"✓ 完成 {result['image_name']} ({len(results)}/{len(tasks)})")
+                success_count += 1
+                # 立即写入CSV
+                with open(csv_path, 'a', newline='', encoding='utf-8') as csvfile:
+                    csv_writer = csv.writer(csvfile)
+                    csv_writer.writerow([
+                        result['image_name'],
+                        result['prompt'],
+                        result['out1'],
+                        result['out2'],
+                        result['score_acc'],
+                        result['out3'],
+                        result['score_quality'],
+                        result['score_acc_avg'],
+                        result['score_quality_avg']
+                    ])
+                    csvfile.flush()
+                print(f"✓ 完成并写入 {result['image_name']} ({completed_count}/{len(tasks)}) - acc:{result['score_acc_avg']:.3f}, qual:{result['score_quality_avg']:.3f}")
             else:
-                print(f"✗ 失败 {result['image_name']}: {result.get('error', 'Unknown error')}")
+                failed_count += 1
+                print(f"✗ 失败 {result['image_name']} ({completed_count}/{len(tasks)}): {result.get('error', 'Unknown error')}")
     
-    # 按照原始顺序排序结果（根据 num）
-    results.sort(key=lambda x: x['num'])
-    
-    # 统计成功和失败的数量
-    success_count = sum(1 for r in results if r['success'])
-    failed_count = len(results) - success_count
-    print(f"处理完成：成功 {success_count} 张，失败 {failed_count} 张")
-    
-    # 写入 CSV
-    print(f"写入结果到 CSV: {csv_path}")
-    
-    with open(csv_path, 'a', newline='', encoding='utf-8') as csvfile:
-        csv_writer = csv.writer(csvfile)
-        
-        # 如果是新文件，写入表头
-        if line_count == 0:
-            csv_writer.writerow(["id", "prompt", "answer_1", "answer_2", "score_acc", 
-                                "answer_3", "score_qual", "score_a_avg", "score_q_avg"])
-            print("已写入表头")
-        
-        # 写入所有成功的结果
-        written_count = 0
-        for result in results:
-            if result['success']:
-                csv_writer.writerow([
-                    result['image_name'],
-                    result['prompt'],
-                    result['out1'],
-                    result['out2'],
-                    result['score_acc'],
-                    result['out3'],
-                    result['score_quality'],
-                    result['score_acc_avg'],
-                    result['score_quality_avg']
-                ])
-                written_count += 1
-        
-        csvfile.flush()
-        print(f"已写入 {written_count} 条记录到 CSV")
-    
-    print(f"评估完成！结果已保存到 {csv_path}")
+    print(f"\n评估完成！成功 {success_count} 张，失败 {failed_count} 张")
+    print(f"结果已保存到 {csv_path}")
     return csv_path
 
 def model_score(csv_path):
