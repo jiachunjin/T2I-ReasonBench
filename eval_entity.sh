@@ -3,4 +3,5 @@ python evaluation/Qwen2.5-VL/eval_entity.py \
   --output_path csv_result/entity \
   --prompt_json prompts/entity_reasoning.json \
   --qs_json deepseek_evaluation_qs/evaluation_entity.json \
-  --model_name 076
+  --model_name 076 \
+  --num_workers 8
