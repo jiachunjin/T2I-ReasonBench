@@ -34,36 +34,12 @@ def ask_qw(mmm, processor=None, model=None):
         # 从环境变量中获取您的 API Key
         api_key = "3st3k7qm36mv0839s869edb7eey63qommvce"
     )
-    # print(mmm)
-    # exit(0)
     completion = client.chat.completions.create(
         model="ep-j4xf6w-1762763909712128651",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
         messages=mmm,
     )
     output_text = completion.choices[0].message.content
     print(output_text)
-    # Preparation for inference
-    # text = processor.apply_chat_template(
-    #     messages, tokenize=False, add_generation_prompt=True
-    # )
-    # image_inputs, video_inputs = process_vision_info(messages)
-    # inputs = processor(
-    #     text=[text],
-    #     images=image_inputs,
-    #     videos=video_inputs,
-    #     padding=True,
-    #     return_tensors="pt",
-    # )
-    # inputs = inputs.to(model.device)
-
-    # # Inference: Generation of the output
-    # generated_ids = model.generate(**inputs, max_new_tokens=1000)
-    # generated_ids_trimmed = [
-    #     out_ids[len(in_ids) :] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
-    # ]
-    # output_text = processor.batch_decode(
-    #     generated_ids_trimmed, skip_special_tokens=True, clean_up_tokenization_spaces=False
-    # )
     
     return [output_text]
 
