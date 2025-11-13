@@ -1,5 +1,5 @@
-NAME="t2ir_sft"
-IMAGE_PATH="wise_qimage_SFT"
+NAME="qimgge_rl_22"
+IMAGE_PATH="qimgge_rl_22"
 WORKERS=16
 
 python evaluation/Qwen2.5-VL/eval_entity.py \
