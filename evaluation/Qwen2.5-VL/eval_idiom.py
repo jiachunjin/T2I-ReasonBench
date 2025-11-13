@@ -7,6 +7,7 @@ import csv
 import json
 import re
 import argparse
+import random
 from concurrent.futures import ProcessPoolExecutor, as_completed
 
 def extract_json(text):
@@ -26,13 +27,19 @@ def extract_json(text):
         print("No JSON found in the text.")
     return json_data
 
+key1 = "xtsrg8n95ff53v3srkhn5k11vxh1jpwjak8g"
+key2 = "3st3k7qm36mv0839s869edb7eey63qommvce"
+key3 = "hoydwfikjk9nx7cnjdeg7kcovu2p1bh4brf5"
+key4 = "2zm1a6kvgvxu9zfnl2zzf7xq9fbvsk5zexxg"
+key5 = "yc5gm59g7a3bsvym0io3nkgoceakwybe630w"
+
 def ask_qw(mmm, processor=None, model=None):
     client = OpenAI(
         # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
         base_url="http://wanqing.internal/api/gateway/v1/endpoints",
         # base_url = "https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints",
         # 从环境变量中获取您的 API Key
-        api_key = "3st3k7qm36mv0839s869edb7eey63qommvce"
+        api_key = random.choice([key1, key2, key3, key4, key5])
     )
     completion = client.chat.completions.create(
         model="ep-j4xf6w-1762763909712128651",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
