@@ -1,5 +1,5 @@
-NAME="t2ir_iter28"
-IMAGE_PATH="t2ir_iter28"
+NAME="original_qimage_reasoning"
+IMAGE_PATH="t2ir_original_qimage"
 WORKERS=16
 
 python evaluation/Qwen2.5-VL/eval_entity.py \
