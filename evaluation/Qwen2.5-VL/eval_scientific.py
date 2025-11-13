@@ -58,7 +58,7 @@ def ask_qw(mmm, processor=None, model=None):
             api_key = key3
         )
         completion = client.chat.completions.create(
-            model="ep-s9d5kj-1763016373350410191",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
+            model="ep-lu1b3u-1763016733960154813",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
             messages=mmm,
         )
         output_text = completion.choices[0].message.content
