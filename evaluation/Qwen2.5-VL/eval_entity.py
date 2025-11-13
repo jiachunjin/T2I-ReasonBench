@@ -32,7 +32,7 @@ key2 = "3st3k7qm36mv0839s869edb7eey63qommvce"
 key3 = "dbk89ive7aaagkt209cgvcbyuy0whuwcifx6"
 
 def ask_qw(mmm, processor=None, model=None):
-    model_id = random.choice([1, 2, 3, 4, 5])
+    model_id = random.choice([1, 2, 3, 4, 5, 6, 7, 8])
     if model_id == 1:
         client = OpenAI(
             # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
