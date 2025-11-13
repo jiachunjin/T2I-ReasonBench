@@ -18,18 +18,18 @@ python evaluation/Qwen2.5-VL/eval_idiom.py \
   --model_name ${NAME} \
   --num_workers ${WORKERS}
 
-# python evaluation/Qwen2.5-VL/eval_scientific.py \
-#   --image_folder /data/phd/jinjiachun/codebase/samples_qwenimage/${IMAGE_PATH}/scientific_reasoning \
-#   --output_path csv_result/scientific \
-#   --prompt_json prompts/scientific_reasoning.json \
-#   --qs_json deepseek_evaluation_qs/evaluation_scientific.json \
-#   --model_name ${NAME} \
-#   --num_workers ${WORKERS}
+python evaluation/Qwen2.5-VL/eval_scientific.py \
+  --image_folder /data/phd/jinjiachun/codebase/samples_qwenimage/${IMAGE_PATH}/scientific_reasoning \
+  --output_path csv_result/scientific \
+  --prompt_json prompts/scientific_reasoning.json \
+  --qs_json deepseek_evaluation_qs/evaluation_scientific.json \
+  --model_name ${NAME} \
+  --num_workers ${WORKERS}
 
-# python evaluation/Qwen2.5-VL/eval_textual_image.py \
-#   --image_folder /data/phd/jinjiachun/codebase/samples_qwenimage/${IMAGE_PATH}/textual_image_design \
-#   --output_path csv_result/textual_image \
-#   --prompt_json prompts/textual_image_design.json \
-#   --qs_json deepseek_evaluation_qs/evaluation_textual_image.json \
-#   --model_name ${NAME} \
-#   --num_workers ${WORKERS}
+python evaluation/Qwen2.5-VL/eval_textual_image.py \
+  --image_folder /data/phd/jinjiachun/codebase/samples_qwenimage/${IMAGE_PATH}/textual_image_design \
+  --output_path csv_result/textual_image \
+  --prompt_json prompts/textual_image_design.json \
+  --qs_json deepseek_evaluation_qs/evaluation_textual_image.json \
+  --model_name ${NAME} \
+  --num_workers ${WORKERS}
