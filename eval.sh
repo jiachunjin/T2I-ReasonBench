@@ -1,5 +1,5 @@
-NAME="newsft077"
-IMAGE_PATH="t2i_reasoning_latest_vlm_grpo"
+NAME="zeroshot_qwen25"
+IMAGE_PATH="/data/phd/jinjiachun/codebase/samples_qwenimage/qwen2.5_zero_shot_reasoning"
 
 python evaluation/Qwen2.5-VL/eval_entity.py \
   --image_folder /data/phd/jinjiachun/codebase/samples_qwenimage/${IMAGE_PATH}/entity_reasoning \
