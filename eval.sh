@@ -1,5 +1,5 @@
-NAME="qimgge_rl_22"
-IMAGE_PATH="qimgge_rl_22"
+NAME="qimgge_raw_18"
+IMAGE_PATH="qimgge_raw_18"
 WORKERS=16
 
 python evaluation/Qwen2.5-VL/eval_entity.py \
