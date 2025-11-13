@@ -1,5 +1,5 @@
-NAME="original_qimage_reasoning"
-IMAGE_PATH="t2ir_original_qimage"
+NAME="t2ir_original_new_reason(noreason)"
+IMAGE_PATH="t2ir_original_new_reason"
 WORKERS=16
 
 python evaluation/Qwen2.5-VL/eval_entity.py \
