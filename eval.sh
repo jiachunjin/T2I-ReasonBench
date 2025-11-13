@@ -1,5 +1,5 @@
-NAME="zeroshot_qwen25"
-IMAGE_PATH="qwen2.5_zero_shot_reasoning"
+NAME="t2ir_iter28"
+IMAGE_PATH="t2ir_iter28"
 WORKERS=16
 
 python evaluation/Qwen2.5-VL/eval_entity.py \
