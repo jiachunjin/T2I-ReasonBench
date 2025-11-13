@@ -32,7 +32,7 @@ key2 = "3st3k7qm36mv0839s869edb7eey63qommvce"
 key3 = "dbk89ive7aaagkt209cgvcbyuy0whuwcifx6"
 
 def ask_qw(mmm, processor=None, model=None):
-    model_id = random.choice([1, 2])
+    model_id = random.choice([1, 2, 3, 4])
     if model_id == 1:
         client = OpenAI(
             # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
@@ -49,7 +49,7 @@ def ask_qw(mmm, processor=None, model=None):
         print(output_text)
         
         return [output_text]
-    else:
+    elif model_id == 2:
         client = OpenAI(
             # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
             base_url="http://wanqing.internal/api/gateway/v1/endpoints",
@@ -59,6 +59,38 @@ def ask_qw(mmm, processor=None, model=None):
         )
         completion = client.chat.completions.create(
             model="ep-lu1b3u-1763016733960154813",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
+            messages=mmm,
+        )
+        output_text = completion.choices[0].message.content
+        print(output_text)
+        
+        return [output_text]
+    elif model_id == 3:
+        client = OpenAI(
+            # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
+            base_url="http://wanqing.internal/api/gateway/v1/endpoints",
+            # base_url = "https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints",
+            # 从环境变量中获取您的 API Key
+            api_key = key3
+        )
+        completion = client.chat.completions.create(
+            model="ep-or5pkx-1763017020326247518",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
+            messages=mmm,
+        )
+        output_text = completion.choices[0].message.content
+        print(output_text)
+        
+        return [output_text]
+    elif model_id == 4:
+        client = OpenAI(
+            # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
+            base_url="http://wanqing.internal/api/gateway/v1/endpoints",
+            # base_url = "https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints",
+            # 从环境变量中获取您的 API Key
+            api_key = key3
+        )
+        completion = client.chat.completions.create(
+            model="ep-652i88-1763017142984904743",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
             messages=mmm,
         )
         output_text = completion.choices[0].message.content
