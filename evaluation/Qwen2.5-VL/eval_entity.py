@@ -29,26 +29,42 @@ def extract_json(text):
 
 key1 = "xtsrg8n95ff53v3srkhn5k11vxh1jpwjak8g"
 key2 = "3st3k7qm36mv0839s869edb7eey63qommvce"
-key3 = "hoydwfikjk9nx7cnjdeg7kcovu2p1bh4brf5"
-key4 = "2zm1a6kvgvxu9zfnl2zzf7xq9fbvsk5zexxg"
-key5 = "yc5gm59g7a3bsvym0io3nkgoceakwybe630w"
+key3 = "dbk89ive7aaagkt209cgvcbyuy0whuwcifx6"
 
 def ask_qw(mmm, processor=None, model=None):
-    client = OpenAI(
-        # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
-        base_url="http://wanqing.internal/api/gateway/v1/endpoints",
-        # base_url = "https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints",
-        # 从环境变量中获取您的 API Key
-        api_key = random.choice([key1, key2, key3, key4, key5])
-    )
-    completion = client.chat.completions.create(
-        model="ep-j4xf6w-1762763909712128651",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
-        messages=mmm,
-    )
-    output_text = completion.choices[0].message.content
-    print(output_text)
-    
-    return [output_text]
+    model_id = random.choice([1, 2])
+    if model_id == 1:
+        client = OpenAI(
+            # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
+            base_url="http://wanqing.internal/api/gateway/v1/endpoints",
+            # base_url = "https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints",
+            # 从环境变量中获取您的 API Key
+            api_key = random.choice([key1, key2])
+        )
+        completion = client.chat.completions.create(
+            model="ep-j4xf6w-1762763909712128651",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
+            messages=mmm,
+        )
+        output_text = completion.choices[0].message.content
+        print(output_text)
+        
+        return [output_text]
+    else:
+        client = OpenAI(
+            # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
+            base_url="http://wanqing.internal/api/gateway/v1/endpoints",
+            # base_url = "https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints",
+            # 从环境变量中获取您的 API Key
+            api_key = key3
+        )
+        completion = client.chat.completions.create(
+            model="ep-s9d5kj-1763016373350410191",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
+            messages=mmm,
+        )
+        output_text = completion.choices[0].message.content
+        print(output_text)
+        
+        return [output_text]
 
 
 def process_single_image(image_info):
