@@ -32,7 +32,7 @@ key2 = "3st3k7qm36mv0839s869edb7eey63qommvce"
 key3 = "dbk89ive7aaagkt209cgvcbyuy0whuwcifx6"
 
 def ask_qw(mmm, processor=None, model=None):
-    model_id = random.choice([1, 2, 3, 4])
+    model_id = random.choice([1, 2, 3, 4, 5])
     if model_id == 1:
         client = OpenAI(
             # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
@@ -91,6 +91,70 @@ def ask_qw(mmm, processor=None, model=None):
         )
         completion = client.chat.completions.create(
             model="ep-652i88-1763017142984904743",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
+            messages=mmm,
+        )
+        output_text = completion.choices[0].message.content
+        print(output_text)
+        
+        return [output_text]
+    elif model_id == 5:
+        client = OpenAI(
+            # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
+            base_url="http://wanqing.internal/api/gateway/v1/endpoints",
+            # base_url = "https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints",
+            # 从环境变量中获取您的 API Key
+            api_key = key3
+        )
+        completion = client.chat.completions.create(
+            model="ep-ctae6w-1763017348136059709",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
+            messages=mmm,
+        )
+        output_text = completion.choices[0].message.content
+        print(output_text)
+        
+        return [output_text]
+    elif model_id == 6:
+        client = OpenAI(
+            # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
+            base_url="http://wanqing.internal/api/gateway/v1/endpoints",
+            # base_url = "https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints",
+            # 从环境变量中获取您的 API Key
+            api_key = key3
+        )
+        completion = client.chat.completions.create(
+            model="ep-gs3okx-1763017595342986713",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
+            messages=mmm,
+        )
+        output_text = completion.choices[0].message.content
+        print(output_text)
+        
+        return [output_text]
+    elif model_id == 7:
+        client = OpenAI(
+            # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
+            base_url="http://wanqing.internal/api/gateway/v1/endpoints",
+            # base_url = "https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints",
+            # 从环境变量中获取您的 API Key
+            api_key = key3
+        )
+        completion = client.chat.completions.create(
+            model="ep-fchnq4-1763017640477993503",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
+            messages=mmm,
+        )
+        output_text = completion.choices[0].message.content
+        print(output_text)
+        
+        return [output_text]
+    elif model_id == 8:
+        client = OpenAI(
+            # 如需办公网调用，请使用：https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints
+            base_url="http://wanqing.internal/api/gateway/v1/endpoints",
+            # base_url = "https://wanqing-api.corp.kuaishou.com/api/gateway/v1/endpoints",
+            # 从环境变量中获取您的 API Key
+            api_key = key3
+        )
+        completion = client.chat.completions.create(
+            model="ep-fk3now-1763017669714918928",  # ep-j4xf6w-1762763909712128651 为您当前的智能体应用的ID
             messages=mmm,
         )
         output_text = completion.choices[0].message.content
