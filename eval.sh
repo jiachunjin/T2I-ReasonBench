@@ -1,5 +1,5 @@
-NAME="qimgge_raw_18"
-IMAGE_PATH="qimgge_raw_18"
+NAME="qimage_flow_grpo"
+IMAGE_PATH="qimage_flow_grpo"
 WORKERS=16
 
 python evaluation/Qwen2.5-VL/eval_entity.py \
