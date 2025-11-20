@@ -1,9 +1,9 @@
-NAME="t2i_qimage_dual_48"
-IMAGE_PATH="t2i_qimage_dual_48"
+NAME="hunyuan"
+IMAGE_PATH="t2ir_hunyuan"
 WORKERS=16
 
 python evaluation/Qwen2.5-VL/eval_entity.py \
-  --image_folder /data/phd/jinjiachun/codebase/samples_qwenimage/${IMAGE_PATH}/entity_reasoning \
+  --image_folder /data/phd/jinjiachun/codebase/samples_qwenimage/${IMAGE_PATH}/entity \
   --output_path csv_result/entity \
   --prompt_json prompts/entity_reasoning.json \
   --qs_json deepseek_evaluation_qs/evaluation_entity.json \
@@ -11,7 +11,7 @@ python evaluation/Qwen2.5-VL/eval_entity.py \
   --num_workers ${WORKERS}
 
 python evaluation/Qwen2.5-VL/eval_idiom.py \
-  --image_folder /data/phd/jinjiachun/codebase/samples_qwenimage/${IMAGE_PATH}/idiom_interpretation \
+  --image_folder /data/phd/jinjiachun/codebase/samples_qwenimage/${IMAGE_PATH}/idiom \
   --output_path csv_result/idiom \
   --prompt_json prompts/idiom_interpretation.json \
   --qs_json deepseek_evaluation_qs/evaluation_idiom.json \
@@ -19,7 +19,7 @@ python evaluation/Qwen2.5-VL/eval_idiom.py \
   --num_workers ${WORKERS}
 
 python evaluation/Qwen2.5-VL/eval_scientific.py \
-  --image_folder /data/phd/jinjiachun/codebase/samples_qwenimage/${IMAGE_PATH}/scientific_reasoning \
+  --image_folder /data/phd/jinjiachun/codebase/samples_qwenimage/${IMAGE_PATH}/scientific \
   --output_path csv_result/scientific \
   --prompt_json prompts/scientific_reasoning.json \
   --qs_json deepseek_evaluation_qs/evaluation_scientific.json \
@@ -27,7 +27,7 @@ python evaluation/Qwen2.5-VL/eval_scientific.py \
   --num_workers ${WORKERS}
 
 python evaluation/Qwen2.5-VL/eval_textual_image.py \
-  --image_folder /data/phd/jinjiachun/codebase/samples_qwenimage/${IMAGE_PATH}/textual_image_design \
+  --image_folder /data/phd/jinjiachun/codebase/samples_qwenimage/${IMAGE_PATH}/text \
   --output_path csv_result/textual_image \
   --prompt_json prompts/textual_image_design.json \
   --qs_json deepseek_evaluation_qs/evaluation_textual_image.json \
